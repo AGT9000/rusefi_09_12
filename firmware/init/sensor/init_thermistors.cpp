@@ -43,7 +43,7 @@ static SensorConverter& configureTempSensorFunction(const char *msg,
 	} else /* sensor is thermistor */ {
 		validateThermistorConfig(msg, cfg);
 
-		p.thermistor.get<resist>().configure(5.0f, cfg.bias_resistor, isPulldown);
+		p.thermistor.get<resist>().configure(3.3f, cfg.bias_resistor, isPulldown);
 		p.thermistor.get<therm>().configure(cfg);
 
 		return p.thermistor;

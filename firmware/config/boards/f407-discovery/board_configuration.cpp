@@ -116,8 +116,8 @@ void setBoardDefaultConfiguration() {
 
 	engineConfiguration->accelerometerSpiDevice = SPI_DEVICE_1;
 
-	engineConfiguration->triggerSimulatorPins[0] = Gpio::D1;
-	engineConfiguration->triggerSimulatorPins[1] = Gpio::D2;
+	engineConfiguration->triggerSimulatorPins[0] = Unassigned;
+	engineConfiguration->triggerSimulatorPins[1] = Unassigned;
 
 	engineConfiguration->triggerInputPins[0] = Gpio::C6;
 //	engineConfiguration->triggerInputPins[1] = Gpio::A5;

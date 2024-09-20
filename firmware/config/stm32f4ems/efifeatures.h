@@ -472,7 +472,7 @@
 #endif
 
 #ifndef EFI_CONSOLE_RX_BRAIN_PIN
-#define EFI_CONSOLE_RX_BRAIN_PIN Unassigned
+#define EFI_CONSOLE_RX_BRAIN_PIN Gpio::C11
 #endif
 // todo: this should be detected automatically based on pin selection
 // https://github.com/rusefi/rusefi/issues/3536
@@ -487,7 +487,8 @@
 #endif
 
 #ifndef LED_CRITICAL_ERROR_BRAIN_PIN
-#define LED_CRITICAL_ERROR_BRAIN_PIN Gpio::D14
+//#define LED_CRITICAL_ERROR_BRAIN_PIN Gpio::D14
+#define LED_CRITICAL_ERROR_BRAIN_PIN Unassigned
 #endif
 
 // USART1 -> check defined STM32_SERIAL_USE_USART1

@@ -487,8 +487,8 @@
 #endif
 
 #ifndef LED_CRITICAL_ERROR_BRAIN_PIN
-//#define LED_CRITICAL_ERROR_BRAIN_PIN Gpio::D14
-#define LED_CRITICAL_ERROR_BRAIN_PIN Unassigned
+#define LED_CRITICAL_ERROR_BRAIN_PIN Gpio::D14
+//#define LED_CRITICAL_ERROR_BRAIN_PIN Unassigned
 #endif
 
 // USART1 -> check defined STM32_SERIAL_USE_USART1

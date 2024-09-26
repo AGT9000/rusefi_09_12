@@ -113,7 +113,6 @@ void setBoardDefaultConfiguration() {
 	engineConfiguration->clt.adcChannel = EFI_ADC_6;
 	engineConfiguration->iat.adcChannel = EFI_ADC_7;
 	engineConfiguration->afr.hwChannel = EFI_ADC_14;
-	engineConfiguration->clt.adcChannel = EFI_ADC_6;
 
 	engineConfiguration->accelerometerSpiDevice = SPI_DEVICE_1;
 

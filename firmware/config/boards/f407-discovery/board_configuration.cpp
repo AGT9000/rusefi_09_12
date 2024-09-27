@@ -5,6 +5,21 @@
 #include "pch.h"
 #include "hip9011_logic.h"
 
+static void setEtb(){
+	engineConfiguration->etbIo[0].controlPin = Gpio::E5;
+	engineConfiguration->etbIo[0].directionPin1 = Gpio::E2;
+	engineConfiguration->etbIo[0].disablePin = Gpio::E7;
+	engineConfiguration->etb_use_two_wires = false;
+	engineConfiguration->tps1_1AdcChannel = EFI_ADC_11;
+	engineConfiguration->tps1_2AdcChannel = EFI_ADC_14;
+	setPPSInputs(EFI_ADC_1, EFI_ADC_9);
+	engineConfiguration->useFordRedundantPps = true;
+	engineConfiguration->tpsSecondaryMaximum = 51.5;
+	setPPSCalibration(1.41, 4.00, 0.70, 3.30);
+	setTPS1Calibration(100,809);
+	//setToyota1NZFE();
+}
+
 static void setDefaultFrankensoStepperIdleParameters() {
 	engineConfiguration->idle.stepperDirectionPin = Gpio::E10;
 	engineConfiguration->idle.stepperStepPin = Gpio::E12;
@@ -107,7 +122,9 @@ void setBoardDefaultConfiguration() {
 	configureAccelerometerPins();
 #endif /* EFI_ONBOARD_MEMS */
 
+	setEtb();
 
+/*
 
 	engineConfiguration->map.sensor.hwChannel = EFI_ADC_4;
 	engineConfiguration->clt.adcChannel = EFI_ADC_6;
@@ -140,7 +157,7 @@ void setBoardDefaultConfiguration() {
 	engineConfiguration->spi3mosiPin = Gpio::B5;
 	engineConfiguration->spi3misoPin = Gpio::B4;
 	engineConfiguration->spi3sckPin = Gpio::B3;
-
+*/
 
 
 #if EFI_FILE_LOGGING

@@ -4,6 +4,7 @@
 
 #include "pch.h"
 #include "hip9011_logic.h"
+#include "defaults.h"
 
 static void setEtb(){
 	engineConfiguration->etbIo[0].controlPin = Gpio::E5;
@@ -12,10 +13,10 @@ static void setEtb(){
 	engineConfiguration->etb_use_two_wires = false;
 	engineConfiguration->tps1_1AdcChannel = EFI_ADC_11;
 	engineConfiguration->tps1_2AdcChannel = EFI_ADC_14;
-	//setPPSInputs(EFI_ADC_1, EFI_ADC_9);
+	setPPSInputs(EFI_ADC_1, EFI_ADC_9);
 	engineConfiguration->useFordRedundantPps = true;
 	engineConfiguration->tpsSecondaryMaximum = 51.5;
-	//setPPSCalibration(1.41, 4.00, 0.70, 3.30);
+	setPPSCalibration(1.41, 4.00, 0.70, 3.30);
 	//setTPS1Calibration(100,809);
 	//setToyota1NZFE();
 }

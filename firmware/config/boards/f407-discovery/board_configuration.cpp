@@ -153,7 +153,7 @@ void setBoardDefaultConfiguration() {
 	engineConfiguration->ignitionPins[5] = Gpio::E15;
 
 
-	engineConfiguration->accelerometerSpiDevice = SPI_NONE;
+	//engineConfiguration->accelerometerSpiDevice = SPI_NONE;
 
 /*
 

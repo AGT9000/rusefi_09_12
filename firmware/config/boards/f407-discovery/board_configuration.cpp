@@ -137,8 +137,8 @@ void setBoardDefaultConfiguration() {
 	engineConfiguration->fuelPumpPin = Gpio::E6;
 
 
-	//engineConfiguration->injectionPins[0] = Gpio::D12;
-	engineConfiguration->injectionPins[0] = Gpio::Inj_Out1;
+	engineConfiguration->injectionPins[0] = Gpio::D12;
+	//engineConfiguration->injectionPins[0] = Gpio::Inj_Out1;
 	engineConfiguration->injectionPins[1] = Gpio::D14;
 	engineConfiguration->injectionPins[2] = Gpio::D13;
 	engineConfiguration->injectionPins[3] = Gpio::D15;
@@ -153,7 +153,7 @@ void setBoardDefaultConfiguration() {
 	engineConfiguration->ignitionPins[5] = Gpio::E15;
 
 
-	//engineConfiguration->accelerometerSpiDevice = SPI_NONE;
+	engineConfiguration->accelerometerSpiDevice = SPI_NONE;
 
 /*
 

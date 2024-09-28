@@ -126,7 +126,7 @@ void setBoardDefaultConfiguration() {
 	setEtb();
 
 	engineConfiguration->map.sensor.hwChannel = EFI_ADC_12;
-	//engineConfiguration->clt.adcChannel = EFI_ADC_6;
+	
 	engineConfiguration->clt.adcChannel = EFI_ADC_13;
 	//engineConfiguration->iat.adcChannel = EFI_ADC_7;
 	engineConfiguration->iat.adcChannel = EFI_ADC_10;

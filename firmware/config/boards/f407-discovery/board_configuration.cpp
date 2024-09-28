@@ -125,6 +125,36 @@ void setBoardDefaultConfiguration() {
 
 	setEtb();
 
+	engineConfiguration->map.sensor.hwChannel = EFI_ADC_12;
+	//engineConfiguration->clt.adcChannel = EFI_ADC_6;
+	engineConfiguration->clt.adcChannel = EFI_ADC_13;
+	//engineConfiguration->iat.adcChannel = EFI_ADC_7;
+	engineConfiguration->iat.adcChannel = EFI_ADC_10;
+	engineConfiguration->afr.hwChannel = EFI_ADC_NONE;
+	engineConfiguration->vbattAdcChannel = EFI_ADC_15;
+
+	engineConfiguration->fanPin = Gpio::E3;
+	engineConfiguration->fuelPumpPin = Gpio::E6;
+
+
+	//engineConfiguration->injectionPins[0] = Gpio::D12;
+	engineConfiguration->injectionPins[0] = Gpio::Inj_Out1;
+	engineConfiguration->injectionPins[1] = Gpio::D14;
+	engineConfiguration->injectionPins[2] = Gpio::D13;
+	engineConfiguration->injectionPins[3] = Gpio::D15;
+	engineConfiguration->injectionPins[4] = Gpio::E9;
+	engineConfiguration->injectionPins[5] = Gpio::E11;
+
+	engineConfiguration->ignitionPins[0] = Gpio::D7;
+	engineConfiguration->ignitionPins[1] = Gpio::B9;
+	engineConfiguration->ignitionPins[2] = Gpio::A8;
+	engineConfiguration->ignitionPins[3] = Gpio::D9;
+	engineConfiguration->ignitionPins[4] = Gpio::D10;
+	engineConfiguration->ignitionPins[5] = Gpio::E15;
+
+
+	engineConfiguration->accelerometerSpiDevice = SPI_NONE;
+
 /*
 
 	engineConfiguration->map.sensor.hwChannel = EFI_ADC_4;

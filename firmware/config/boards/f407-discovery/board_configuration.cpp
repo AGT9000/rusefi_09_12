@@ -140,7 +140,7 @@ static void configureAccelerometerPins() {
 void setBoardDefaultConfiguration() {
 	setDefaultFrankensoStepperIdleParameters();
 	setCanFrankensoDefaults();
-	discovery_custom()
+	discovery_custom();
 	setEtb();
 
 #ifndef HW_NOT_COMMUNITY_FRANKENSO

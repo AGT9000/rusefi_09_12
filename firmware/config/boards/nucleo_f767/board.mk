@@ -12,7 +12,7 @@ DDEFS += -DLED_CRITICAL_ERROR_BRAIN_PIN=Gpio::B14
 EFI_ETHERNET = yes
 ifeq (,$(findstring EFI_BOOTLOADER,$(DDEFS)))
 	LWIP = yes
-	DDEFS += -DCH_CFG_USE_DYNAMIC=TRUE
+	DDEFS += -DCH_CFG_USE_DYNAMIC=FALSE
 endif
 
 # Fix stuck in mac_lld_start() in main app

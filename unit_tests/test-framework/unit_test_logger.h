@@ -6,10 +6,29 @@
 
 #define TEST_RESULTS_DIR "test_results"
 
-// Per-file size limit for unit test log artifacts. When a writer's output
-// exceeds this threshold the writer throws LogsTooLargeException and the
-// caller disables logging for the remainder of the run.
-static constexpr size_t LOG_FILE_SIZE_LIMIT = 16 * 1024 * 1024;
+// Default per-file size limit for unit test log artifacts. When a writer's
+// output exceeds the active limit (see getLogFileSizeLimit) the writer throws
+// LogsTooLargeException and the caller disables logging for the rest of the
+// run.
+static constexpr size_t LOG_FILE_SIZE_LIMIT_DEFAULT = 16 * 1024 * 1024;
+
+// Active per-file size limit. Individual tests that legitimately produce
+// larger artifacts may bump this via setLogFileSizeLimit() for the duration
+// of the test (remember to restore the previous value afterwards).
+size_t getLogFileSizeLimit();
+void setLogFileSizeLimit(size_t bytes);
+
+// RAII helper: bump the per-file unit-test log size limit for the duration of
+// a test, restoring the previous value on scope exit. Use this for tests that
+// legitimately produce log artifacts larger than LOG_FILE_SIZE_LIMIT_DEFAULT
+// (16 MB) instead of disabling logs entirely.
+struct ScopedLogFileSizeLimit {
+	size_t saved;
+	explicit ScopedLogFileSizeLimit(size_t bytes) : saved(getLogFileSizeLimit()) {
+		setLogFileSizeLimit(bytes);
+	}
+	~ScopedLogFileSizeLimit() { setLogFileSizeLimit(saved); }
+};
 
 class LogsTooLargeException : public std::runtime_error {
 public:

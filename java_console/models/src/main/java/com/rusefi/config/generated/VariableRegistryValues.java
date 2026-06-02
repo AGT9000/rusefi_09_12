@@ -141,7 +141,9 @@ public class VariableRegistryValues {
 	public static final int BENCH_VVT_DURATION = 300;
 	public static final int BLEND_FACTOR_SIZE = 8;
 	public static final int BLEND_TABLE_COUNT = 8;
+	public static final int blend_table_s_BLEND_PRECISION_size = 188;
 	public static final int blend_table_s_size = 188;
+	public static final int blend_table_s_TARGET_AFR_BLEND_PRECISION_size = 188;
 	public static final int BLOCKING_FACTOR = 1024;
 	public static final int BOARD_ACTION_INJECTOR_PRESET = 0x302;
 	public static final int BOOST_BLEND_COUNT = 2;
@@ -570,7 +572,7 @@ public class VariableRegistryValues {
 	public static final int ETB_HW_MAX_FREQUENCY = 3000;
 	public static final int ETHERNET_PORT = 29001;
 	public static final int FAN_PWM_CURVE_SIZE = 8;
-	public static final int FLASH_DATA_VERSION = 260407;
+	public static final int FLASH_DATA_VERSION = 260528;
 	public static final int FLOW_LINEARIZATION_MASS_SIZE = 2;
 	public static final int FLOW_LINEARIZATION_PRESSURE_SIZE = 2;
 	public static final String FRONTEND_TITLE_BAR_NAME = "rusEFI";
@@ -1334,7 +1336,7 @@ public class VariableRegistryValues {
 	public static final int mc33810maxDwellTimer_e_DWELL_8MS = 2;
 	public static final String MENU_NAME_AUX_TEMP1 = "AuxTemp1 sensor";
 	public static final String MENU_NAME_AUX_TEMP2 = "AuxTemp2 sensor";
-	public static final int MIN_launchTpsThreshold = 20;
+	public static final int MIN_launchTpsThreshold = 3;
 	public static final int MLQ_FIELD_HEADER_SIZE = 89;
 	public static final int MLQ_HEADER_SIZE = 24;
 	public static final int MsIoBox_config_s_size = 4;
@@ -1460,7 +1462,6 @@ public class VariableRegistryValues {
 	public static final int SentInput_INPUT6 = 6;
 	public static final int SentInput_INPUT7 = 7;
 	public static final int SentInput_NONE = 0;
-	public static final int SIGNATURE_HASH = 1068466800;
 	public static final String SIMULATOR_TUNE_BIN_FILE_NAME = "generated/simulator_tune_image.bin";
 	public static final String SIMULATOR_TUNE_BIN_FILE_NAME_PREFIX = "generated/simulator_tune_image";
 	public static final String SIMULATOR_TUNE_BIN_FILE_NAME_SUFFIX = ".bin";
@@ -1784,7 +1785,7 @@ public class VariableRegistryValues {
 	public static final int TS_RESPONSE_UNRECOGNIZED_COMMAND = 0x83;
 	public static final int TS_SCATTER_OFFSETS_COUNT = 128;
 	public static final char TS_SET_LOGGER_SWITCH = 'l';
-	public static final String TS_SIGNATURE = "rusEFI master.2026.05.28.mre_f7.1068466800";
+	public static final String TS_SIGNATURE = "rusEFI master.2026.06.02.mre_f7.3772516505";
 	public static final char TS_SIMULATE_CAN = '>';
 	public static final char TS_TEST_COMMAND = 't';
 	public static final int TS_TOTAL_OUTPUT_SIZE = 2136;

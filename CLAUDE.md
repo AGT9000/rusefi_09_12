@@ -28,12 +28,13 @@ Outputs are placed in `firmware/deliver/`:
 
 ```bash
 cd unit_tests
-make
-./build/rusefi_test
+./test.sh
 
 # Run a specific test
-./build/rusefi_test --gtest_filter=TestName
+./test.sh TestName
 ```
+
+`test.sh` is the recommended way to run tests as it automatically handles both the build (`make`) and execution.
 
 #### Code Coverage
 Coverage reports are generated using `gcovr` (requires Python 3).
@@ -106,6 +107,7 @@ For detailed technical documentation intended for AI assistants, see:
 - **Event-driven execution**: Trigger events from crank/cam sensors drive the main control loop
 - **Angle-based scheduling**: Events scheduled by crank angle, not just time
 - **Configuration-driven**: Board and engine parameters externalized; firmware adapts via configuration
+- **Calibration Compatibility**: Maintaining [compatibility with older tunes](docs/calibration-compatibility.md) when adding new parameters.
 - **ChibiOS RTOS**: Real-time operating system foundation
 
 #### Generated configuration layout
@@ -163,7 +165,7 @@ Any code reachable from a unit-test build (`unit_tests/` itself, plus firmware s
 
 - **Static allocation only**: Embedded firmware uses only static memory allocation. No heap usage (`new`, `malloc`, `std::vector`, `std::string`, `std::map`, etc.) is permitted in production firmware code. Use fixed-size containers like `cyclic_buffer` from `rusefi/containers/cyclic_buffer.h` instead. Memory is limited and fragmentation must be avoided.
 - **Performance matters**: This is a hard real-time application. Fuel and ignition events must fire at precise crank angles. Avoid unnecessary computation in hot paths. Use lower priority threads for expensive computation.
-- **No exceptions**: C++ exceptions are disabled. Use return values or error codes for error handling.
+- **No exceptions**: C++ exceptions are disabled. Use return values or error codes for error handling. rusEFI distinguishes three kinds of errors — `warning()` (recoverable runtime), `configError()` (recoverable bad tune) and `firmwareError()` / `criticalError()` (unrecoverable). See the header comment in `firmware/controllers/core/error_handling.h` for when to use which.
 - **No RTTI**: `dynamic_cast` and `typeid` are unavailable.
 - **Interrupt safety**: Be mindful of code that runs in interrupt context vs. thread context. Use appropriate synchronization primitives.
 - **Stack usage**: Keep stack allocations small. Large arrays should be static or global, not local variables.

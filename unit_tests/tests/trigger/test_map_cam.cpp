@@ -27,7 +27,7 @@ TEST(trigger, map_cam_by_magic_point) {
 	ASSERT_EQ(150,  Sensor::getOrZero(SensorType::Rpm)) << "RPM";
 
 	ASSERT_EQ(1, engine->triggerCentral.mapVvt_sync_counter);
-	ASSERT_EQ(0, engine->triggerCentral.triggerState.camResyncCounter);
+	ASSERT_EQ(0, engine->triggerCentral.triggerState.phaseResyncCounter);
 
 	// Nothing should have been scheduled yet
 	ASSERT_EQ(1, engine->scheduler.size());
@@ -40,15 +40,17 @@ TEST(trigger, map_cam_by_magic_point) {
 	eth.smartFireTriggerEvents2(/*count*/4, /*delayMs*/200);
 
 	ASSERT_EQ(2, engine->triggerCentral.mapVvt_sync_counter);
-	ASSERT_EQ(1, engine->triggerCentral.triggerState.camResyncCounter);
+	ASSERT_EQ(1, engine->triggerCentral.triggerState.phaseResyncCounter);
 	ASSERT_EQ(10, engine->triggerCentral.mapVvt_MAP_AT_CYCLE_COUNT);
 
 	ASSERT_EQ(ClearReason::None, getLimpManager()->allowIgnition().reason);
 	ASSERT_EQ(ClearReason::None, getLimpManager()->allowInjection().reason);
 
-	for (size_t i = 0; i < 4; i++) {
-		printf("%d %s\n", i, engine->scheduler.getForUnitTest(i)->action.getCallbackName());
-	}
+	// NOTHING TO DO HERE - this loop was dangerous and unnecessary.
+	// printf("Scheduler size: %d\n", engine->scheduler.size());
+	// for (size_t i = 0; i < (size_t)engine->scheduler.size(); i++) {
+	// 	printf("%d %s\n", (int)i, engine->scheduler.getForUnitTest(i)->action.getCallbackName());
+	// }
 
 	// We have "VVT" sync, things should be scheduled!
 	ASSERT_EQ(4, engine->scheduler.size());

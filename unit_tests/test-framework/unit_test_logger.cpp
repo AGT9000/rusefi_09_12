@@ -34,10 +34,16 @@ static size_t mslBytes = 0;
 static size_t csvBytes = 0;
 static size_t ndjsonBytes = 0;
 
+static size_t activeLogFileSizeLimit = LOG_FILE_SIZE_LIMIT_DEFAULT;
+
+size_t getLogFileSizeLimit() { return activeLogFileSizeLimit; }
+void setLogFileSizeLimit(size_t bytes) { activeLogFileSizeLimit = bytes; }
+
 static void checkSizeLimit(const char* which, size_t bytes) {
-	if (bytes > LOG_FILE_SIZE_LIMIT) {
+	size_t limit = activeLogFileSizeLimit;
+	if (bytes > limit) {
 		throw LogsTooLargeException(std::string(which) + " log exceeded "
-			+ std::to_string(LOG_FILE_SIZE_LIMIT) + " bytes (size="
+			+ std::to_string(limit) + " bytes (size="
 			+ std::to_string(bytes) + ")");
 	}
 }
@@ -142,7 +148,13 @@ static void writeCsvLine() {
 		if (digits > 9) {
 			digits = 9;
 		}
-		int n = fprintf(csvFile, ",%.*f", digits, v);
+		int n = 0;
+		bool isFloat = (f.getTypeId() == static_cast<uint8_t>(MLG::Types::Field::Scalar::F32));
+		if (isFloat && (std::isnan(v) || std::isinf(v))) {
+			n = fprintf(csvFile, ",null");
+		} else {
+			n = fprintf(csvFile, ",%.*f", digits, v);
+		}
 		if (n > 0) {
 			csvBytes += n;
 		}

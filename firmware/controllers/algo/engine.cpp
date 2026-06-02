@@ -149,14 +149,7 @@ void Engine::updateTriggerConfiguration() {
 
 std::optional<setup_custom_board_overrides_type> custom_board_periodicSlowCallback;
 std::optional<setup_custom_board_overrides_type> custom_board_periodicFastCallback;
-
-void boardPeriodicSlowCallback() {
-  // placeholder to force upgrade
-}
-
-void boardPeriodicFastCallback() {
-  // placeholder to force upgrade
-}
+std::optional<setup_custom_board_overrides_type> custom_board_onEngineStopped;
 
 void Engine::periodicSlowCallback() {
 	ScopePerf perf(PE::EnginePeriodicSlowCallback);
@@ -209,7 +202,6 @@ void Engine::periodicSlowCallback() {
 	void baroLps25Update();
 	baroLps25Update();
 #endif // EFI_PROD_CODE
-  boardPeriodicSlowCallback();
   call_board_override(custom_board_periodicSlowCallback);
 }
 
@@ -300,13 +292,36 @@ int Engine::getGlobalConfigurationVersion() const {
 	return globalConfigurationVersion;
 }
 
+#if EFI_UNIT_TEST
 void Engine::reset() {
+	efi::clear((engine_state_s&)engineState);
+	efi::clear((fuel_computer_s&)fuelComputer);
+	efi::clear((ignition_state_s&)ignitionState);
+	efi::clear(sensors);
+ 	efi::clear((output_channels_s&)outputChannels);
+ 	efi::clear(dc_motors);
+ #if EFI_SENT_SUPPORT
+ 	efi::clear(sent_state);
+ #endif
+
 	/**
 	 * it's important for wrapAngle() that engineCycle field never has zero
 	 */
 	engineState.engineCycle = getEngineCycle(FOUR_STROKE_CRANK_SENSOR);
 	resetLua();
+
+	allowCanTx = true;
+	isPwmEnabled = true;
+	pauseCANdueToSerial = false;
+
+	globalConfigurationVersion = 0;
+	isRunningPwmTest = false;
+	isFunctionalTestMode = false;
+	slowCallBackWasInvoked = false;
+
+	timeToStopIdleTest = 0;
 }
+#endif
 
 void Engine::resetLua() {
 	// todo: https://github.com/rusefi/rusefi/issues/4308
@@ -559,9 +574,7 @@ injection_mode_e getCurrentInjectionMode() {
 void Engine::periodicFastCallback() {
 	ScopePerf pc(PE::EnginePeriodicFastCallback);
 
-	boardPeriodicFastCallback();
 	call_board_override(custom_board_periodicFastCallback);
-
 
 	engineState.periodicFastCallback();
 
@@ -572,6 +585,9 @@ void Engine::periodicFastCallback() {
 
 void Engine::onEngineStopped() {
 	engineModules.apply_all([](auto& m) { m.onEngineStop(); });
+
+  // todo: proper way is to use modules!
+	call_board_override(custom_board_onEngineStopped);
 }
 
 EngineRotationState * getEngineRotationState() {
